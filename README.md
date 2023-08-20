@@ -4,4 +4,5 @@ Matéria Algoritmo e Estrutura de Dados I do curso de Engenharia de Computação
 
 ## Referências:
 https://github.com/eduardolfalcao/edi/tree/master
+
 https://replit.com/@eduardolfalcao/Go-List#main.go
