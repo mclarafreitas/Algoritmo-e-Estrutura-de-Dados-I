@@ -9,96 +9,28 @@ Primeiramente, vamos criar uma função para inicializar nosso Array em GoLang. 
 ```
 package main
 
-import (
-	"fmt"
-)
-
-type List interface {
-	Add(value int)
-  AddPos(value int, pos int)
-  Update(value int, pos int)
-	RemoveLast()
-  Remove(pos int)
-  Get(pos int) int
-	Size() int
-}
+import "fmt"
 
 type ArrayList struct {
-	values []int
-	inserted  int
+    vetor      []int
+    qtdade     int
+    capacidade int // capacidade atual do vetor
 }
 
-/**
- * Duplica o vetor.
- */
-func (list *ArrayList) doubleArray(){
-  curSize := len(list.values)
-  doubledValues := make([]int, 2*curSize)
-	
-  for i := 0; i < curSize; i++ {
-    doubledValues[i] = list.values[i]
-  }
-  list.values = doubledValues  
-}
-
-/**
- * Adiciona sempre da esquerda para a direita,
- * após o último elemento inserido anteriormente.
- *
- * Melhor caso: Ômega(1)
- *   Just: não precisa duplicar vetor, nem varrer o vetor
- *         do início para encontrar o endereço a ser Add
- * Pior caso: O(n)
- *   Just: duplicar o vetor requer copiar os elementos
- *         para o novo vetor, causando um custo computa-
- *         cional proporcional ao tamanho do vetor (n)
- */
-func (list *ArrayList) Add(val int) {
-  //verificar se array está lotado
-  if list.inserted >= len(list.values) {
-    list.doubleArray();  
-  }
-	list.values[list.inserted] = val
-  list.inserted++
-}
-
-/**
- * Adiciona elemento na posição especificada, deslocando
- * os elementos à direita dessa posição.
- *
- * Melhor caso: Ômega(1)
- *   Just: não precisa duplicar vetor, nem varrer o vetor
- *         do início para encontrar o endereço a ser Add
- * Pior caso: O(n)
- *   Just: 1) duplicar o vetor requer copiar os elementos
- *         para o novo vetor, causando um custo computa-
- *         cional proporcional ao tamanho do vetor (n)
- *         2) adicionar no início requer deslocar os n
- *            elementos do vetor para a direita
- */
-func (list *ArrayList) AddPos(val int, pos int) {
-  //pos eh um valor válido?
-  if pos >= 0 && pos <= list.inserted{
-    //verificar se array está lotado
-    if list.inserted >= len(list.values) {
-      list.doubleArray();  
+func inicializar(capacidade int) *ArrayList {
+    // precisamos alocar memória para a estrutura
+    lista := &ArrayList{
+        vetor:      make([]int, capacidade),
+        qtdade:     0,
+        capacidade: capacidade,
     }
-
-    // começar do início para o fim, para aproveitar
-    // a cache pode de fato melhorar o desempenho?
-    for i:=list.inserted; i > pos; i-- {
-      list.values[i] = list.values[i-1]
-    }
-    list.values[pos] = val;
-    list.inserted++
-  }
-}
-
-func (list *ArrayList) Size() int {
-	return list.inserted
+    return lista
 }
 
 func main() {
-	fmt.Println("Hello, World!")
+    capacidade := 10
+    lista := inicializar(capacidade)
+    fmt.Println(lista)
 }
+
 ```
