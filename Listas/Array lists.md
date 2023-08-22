@@ -42,3 +42,45 @@ Arrays instancionados não mudam de tamanho naturalmente. Portanto, sempre que o
 A seguir é apresentado uma animação que ilustra um ArrayList sendo inicilizado e utilizado além da sua capacidade, forçando a alocação de um novo array. Em seguida, são apresentadas as implementações das funções de duplicar capacidade e inserir elemento no fim.
 ![image](https://github.com/mclarafreitas/Algoritmo-e-Estrutura-de-Dados-I/assets/62397977/086fe917-effa-4cd2-a744-ea8745f81446)
 
+´´´
+package main
+
+type ArrayList struct {
+    vetor     []int
+    qtdade    int
+    capacidade int
+}
+
+func inicializar(capacidade int) *ArrayList {
+    lista := &ArrayList{}
+    lista.vetor = make([]int, capacidade)
+    lista.qtdade = 0
+    lista.capacidade = capacidade
+    return lista
+}
+
+func duplicarCapacidade(lista *ArrayList) {
+    novaCapacidade := 2 * lista.capacidade
+    novoVetor := make([]int, novaCapacidade)
+    copy(novoVetor, lista.vetor)
+    lista.vetor = novoVetor
+    lista.capacidade = novaCapacidade
+}
+
+func inserirElementoNoFim(lista *ArrayList, valor int) {
+    if lista.qtdade == lista.capacidade {
+        duplicarCapacidade(lista)
+    }
+    lista.vetor[lista.qtdade] = valor
+    lista.qtdade++
+}
+
+func main() {
+    capacidade := 10
+    lista := inicializar(capacidade)
+
+    // Exemplo de uso das funções
+    inserirElementoNoFim(lista, 42)
+}
+
+´´´
