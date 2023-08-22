@@ -42,7 +42,7 @@ Arrays instancionados não mudam de tamanho naturalmente. Portanto, sempre que o
 A seguir é apresentado uma animação que ilustra um ArrayList sendo inicilizado e utilizado além da sua capacidade, forçando a alocação de um novo array. Em seguida, são apresentadas as implementações das funções de duplicar capacidade e inserir elemento no fim.
 ![image](https://github.com/mclarafreitas/Algoritmo-e-Estrutura-de-Dados-I/assets/62397977/086fe917-effa-4cd2-a744-ea8745f81446)
 
-´´´
+```
 package main
 
 type ArrayList struct {
@@ -83,4 +83,4 @@ func main() {
     inserirElementoNoFim(lista, 42)
 }
 
-´´´
+```
