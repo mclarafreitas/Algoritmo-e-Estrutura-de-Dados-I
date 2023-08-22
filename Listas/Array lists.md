@@ -84,3 +84,37 @@ func main() {
 }
 
 ```
+### Outra forma de aumentar a capacidade
+O professor passou um exemplo com a linguagem C na qual provê ferramentar paga gereciamento rigosos de memória RAM. A forma mais trivial de aumentar o tamanho de um array é alocando um novo array com maior capacidade e copiando os elementos do array antigo para o novo array, como mostrado acima. Agora vamos usar a função realloc, que é capaz de aumentar o tamanho do bloco de memória alocado, movendo-o para outra posição na memória quando for necessário. Porém, em GoLang não temos essa função então perguntei ao ChatGPT o que seria equivalente a isso e obtive essa resposta:
+```
+package main
+
+import "unsafe"
+
+type arraylist struct {
+    vetor      *int
+    capacidade int
+}
+
+func duplicarCapacidade(lista *arraylist) {
+    novaCapacidade := 2 * lista.capacidade
+    novoVetor := make([]int, novaCapacidade)
+    copy(novoVetor, lista.vetor)
+
+    lista.vetor = (*int)(unsafe.Pointer(&novoVetor[0]))
+    lista.capacidade = novaCapacidade
+}
+
+func main() {
+    // Exemplo de uso
+    minhaLista := arraylist{
+        vetor:      make([]int, 5),
+        capacidade: 5,
+    }
+
+    duplicarCapacidade(&minhaLista)
+}
+Observe que, em Go, não há uma função realloc equivalente como em C/C++. Portanto, a abordagem usada aqui é criar um novo slice com a capacidade duplicada e copiar os elementos do slice antigo para o novo slice. A conversão do ponteiro do novo slice para *int é feita usando o pacote unsafe.
+
+Lembre-se de que em Go, a manipulação direta de ponteiros e o uso do pacote unsafe devem ser evitados sempre que possível, pois a linguagem prioriza a segurança e a robustez. O exemplo fornecido é apenas uma demonstração de como algo semelhante ao realloc poderia ser alcançado em Go, mas em muitos casos, existem abordagens mais seguras e Go-friendly para alcançar o mesmo resultado.
+```
