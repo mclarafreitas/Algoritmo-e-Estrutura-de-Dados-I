@@ -118,3 +118,45 @@ Observe que, em Go, não há uma função realloc equivalente como em C/C++. Por
 
 Lembre-se de que em Go, a manipulação direta de ponteiros e o uso do pacote unsafe devem ser evitados sempre que possível, pois a linguagem prioriza a segurança e a robustez. O exemplo fornecido é apenas uma demonstração de como algo semelhante ao realloc poderia ser alcançado em Go, mas em muitos casos, existem abordagens mais seguras e Go-friendly para alcançar o mesmo resultado.
 ```
+## Obtenção
+Os arrays naturalmente nos dão a opção de obter um elemento em uma posição específica usando o índice. O único cuidado que devemos ter é verificar se aquele índice é válido.
+
+Note também que apesar da lista ter uma capacidade específica, ela pode ter uma quantidade de elementos menor do que esta capacidade. Na ilustriação a seguir, a capacidade usada como exemplo é 10. Então, precisamor ter uma variável para controlar quantos elementos já foram inseridos na lista, de forma a usar este valor para saber se existe algum elemento em uma poisição específica.
+
+A seguir são apresentadas uma animação que ilustra uma Arraylist sendo inicializada, além da obtenção do elemnto no índice 2 do Array List e a implementação da função obter elemento.
+![image](https://github.com/mclarafreitas/Algoritmo-e-Estrutura-de-Dados-I/assets/62397977/856e0151-7998-4a3b-9568-e0bf50cb3993)
+
+```
+package main
+
+type arraylist struct {
+    vetor  []int
+    qtdade int
+}
+
+func obterElementoEmPosicao(lista *arraylist, posicao int) int {
+    if posicao >= 0 && posicao < lista.qtdade {
+        return lista.vetor[posicao]
+    }
+    // Se a posição estiver fora dos limites válidos, você pode retornar um valor padrão ou lidar com o erro de alguma outra forma.
+    return -1 // Por exemplo, retornando -1 para indicar um erro.
+}
+
+func main() {
+    // Exemplo de uso
+    minhaLista := arraylist{
+        vetor:  []int{10, 20, 30, 40, 50},
+        qtdade: 5,
+    }
+
+    elemento := obterElementoEmPosicao(&minhaLista, 2)
+    if elemento != -1 {
+        println("Elemento na posição 2:", elemento)
+    } else {
+        println("Posição inválida.")
+    }
+}
+
+```
+## Inserção em local específico da lista
+
