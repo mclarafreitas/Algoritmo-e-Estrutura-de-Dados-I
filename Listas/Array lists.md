@@ -34,3 +34,11 @@ func main() {
 }
 
 ```
+Sobre a escolha de capacidade, se for escolhido um valor enorme, podemos desperdiçar memória. Por outro lado, se escolhermos valores menores que desperdicem menos memórias, se em algum momento a lista ficar totalmente preenchida, será necessário a criação de um novo array maior que o anterior que causaria mais processamento.
+
+## Inserção no fim da lista
+Arrays instancionados não mudam de tamanho naturalmente. Portanto, sempre que o array estiver totalmente preenchido, uma nova inserção irá requerer a criação de um novo array com maior capacidade, ou uma realocação que aumente a capacidade do array. Isto requer que os elementos previamente inseridos no array original sejam copiador para este novo array.
+
+A seguir é apresentado uma animação que ilustra um ArrayList sendo inicilizado e utilizado além da sua capacidade, forçando a alocação de um novo array. Em seguida, são apresentadas as implementações das funções de duplicar capacidade e inserir elemento no fim.
+![image](https://github.com/mclarafreitas/Algoritmo-e-Estrutura-de-Dados-I/assets/62397977/086fe917-effa-4cd2-a744-ea8745f81446)
+
