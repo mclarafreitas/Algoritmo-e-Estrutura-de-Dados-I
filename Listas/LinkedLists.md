@@ -19,3 +19,7 @@ struct no{
 
 
 
+## Referências:
+https://github.com/eduardolfalcao/edi/blob/master/conteudos/ArrayLists.md
+
+ATENÇÃO: Este é apenas um material para meu estudo próprio e todos os créditos são destinados ao professor Eduardo Falcão com o link para o trabalho original acima.
