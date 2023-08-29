@@ -159,4 +159,72 @@ func main() {
 
 ```
 ## Inserção em local específico da lista
+Para inserir um elemento em uma posição específica da lista precisamos tomar o cuidado de deslocar todos os elementos uma posição à direita, para abrir espaço para o novo elemento. Nesta operação, também precisamos verificar se há espaço no array para inserir o elemento, caso não tenha, devemos utilizar a função que duplica a capacidade do Array.
 
+Lembre-se que na interface inserirElemento(int valor, int posicao), posição refere-se ao índice da lista. Ou seja, para adicionar na primeira posição, posicao = 0. Note também que precisamos verificar se a posição é um valor válido.
+
+Segue uma animação que ilusta um ArrayList sendo preenchido, e no final acontece uma inserção na posição 0.
+
+https://github.com/eduardolfalcao/edi/blob/master/conteudos/imgs/listas/arraylist/arraylist-insercao-posicao.gif![image](https://github.com/mclarafreitas/Algoritmo-e-Estrutura-de-Dados-I/assets/62397977/9591333a-a2b5-4e3c-b9e9-023d2ab2aa64)
+
+```
+func inserirElementoEmPosicao(lista *ArrayList, valor int, posicao int) error {
+	if posicao >= 0 && posicao <= lista.qtdade {
+		if lista.qtdade == lista.capacidade {
+			duplicarCapacidade(lista)
+		}
+
+		for i := lista.qtdade; i > posicao; i-- {
+			lista.vetor[i] = lista.vetor[i-1]
+		}
+		lista.vetor[posicao] = valor
+		lista.qtdade++
+		return nil
+	}
+```
+## Atualização em local específico da lista
+Para atualizar o valor em uma posição específica da lista basta nos certificarmos de que aquela posição é válida.
+
+```
+func atualizarElemento(lista *ArrayList, valor int, posicao int) error {
+	if posicao >= 0 && posicao < lista.qtdade {
+		lista.vetor[posicao] = valor
+		return nil
+	}
+```
+
+## Contagem
+Da maneira que implementamos a lista, a própria variável tamanho está sempre atualizada como o tamanho da lista. Deste modo, não precisamos iterar sobre a lista para fazer a contagem.
+```
+func getTamanho(lista *ArrayList) int {
+	return lista.qtdade
+}
+```
+## Remoção no fim da lista
+Remover um elemento no fim da lista é muito simples. Se decrementarmos a variável tamanho, ainda que o valor esteja na lista, o modo como as funções são implementadas desconsidera a existência daquele valor.
+```
+func removerElemento(){
+    tamanho--;
+}
+```
+## Remoção em local específico da lista
+Para remover um elemento de uma posição específica da lista, precisamos descolar uma posição à esquerda todos os elementos que estão à direita dessa posição. Com isto, o elemento que antes ocupava esta posição é virtualmente removido.
+
+```
+func removerElementoEmPosicao(lista *ArrayList, posicao int) {
+	if posicao >= 0 && posicao < lista.qtdade {
+		for posicao < lista.qtdade-1 {
+			lista.vetor[posicao] = lista.vetor[posicao+1]
+			posicao++
+		}
+		lista.qtdade--
+	}
+}
+```
+
+
+
+## Referências:
+https://github.com/eduardolfalcao/edi/blob/master/conteudos/ArrayLists.md
+
+ATENÇÃO: Este é apenas um material para meu estudo próprio e todos os créditos são destinados ao professor Eduardo Falcão com o link para o trabalho original acima.
